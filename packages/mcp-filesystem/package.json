@@ -1,0 +1,19 @@
+{
+    "name": "@mcps/mcp-filesystem",
+    "version": "1.0.0",
+    "private": true,
+    "main": "./dist/index.js",
+    "scripts": {
+      "dev": "bun run --watch src/index.ts",
+      "build": "bun build ./src/index.ts --outdir ./dist --target node",
+      "start": "bun run src/index.ts",
+      "typecheck": "bun tsc --noEmit"
+    },
+    "dependencies": {
+      "@modelcontextprotocol/sdk": "^1.10.0",
+      "zod": "^3.22.0"
+    },
+    "devDependencies": {
+      "typescript": "^5.0.0"
+    }
+  }
