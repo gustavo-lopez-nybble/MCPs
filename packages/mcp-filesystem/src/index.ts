@@ -2,7 +2,7 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 import { readdir, readFile, stat } from "fs/promises";
-import { join, extname, resolve, relative } from "path";
+import { join, extname, resolve, relative, isAbsolute } from "path";
 
 // ─── Config ───────────────────────────────────────────────────
 
@@ -30,8 +30,11 @@ const MAX_FILE_SIZE_KB = parseInt(process.env.FS_MAX_FILE_KB ?? "100");
 // ─── Helpers ──────────────────────────────────────────────────
 
 function safePath(userPath: string): string {
-  const resolved = resolve(join(ROOT_DIR, userPath));
-  if (!resolved.startsWith(ROOT_DIR)) {
+  const rootResolved = resolve(ROOT_DIR);
+  const resolved     = resolve(rootResolved, userPath);
+  const rel          = relative(rootResolved, resolved);
+  // Reject traversals, different drives, and ambiguous `startsWith(root)` prefix issues on Windows.
+  if (isAbsolute(rel) || rel.split(/[/\\]/).includes("..")) {
     throw new Error("Access denied: path outside the allowed directory");
   }
   return resolved;
