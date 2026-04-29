@@ -1,11 +1,21 @@
 {
-  "name": "mcps",
-  "module": "index.ts",
-  "type": "module",
-  "devDependencies": {
-    "@types/bun": "latest"
+  "name": "liso-mcp",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "ts-node packages/mcp-jira/src/index.ts",
+    "mcp-jira": "ts-node packages/mcp-jira/src/index.ts",
+    "demo": "ts-node packages/mcp-jira/src/demo.ts"
   },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "axios": "^1.6.0",
+    "dotenv": "^16.4.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.3.0"
   }
 }
